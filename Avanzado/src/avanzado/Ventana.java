@@ -241,7 +241,7 @@ public class Ventana extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(ClienteIdConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AreaInteraccionLayout.createSequentialGroup()
-                                .addComponent(MostrarDesg1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(MostrarDesg1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(MostrarDesg2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(Nombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -295,16 +295,19 @@ public class Ventana extends javax.swing.JFrame {
                 .addComponent(Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PlacasVehiculo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CostoPoliza, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Direccion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PrimaAsegurada)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MostrarDesg1)
-                    .addComponent(MostrarDesg2))
+                    .addGroup(AreaInteraccionLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CostoPoliza)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PrimaAsegurada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MostrarDesg2)
+                            .addComponent(MostrarDesg1)))
+                    .addGroup(AreaInteraccionLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(Direccion)))
                 .addGap(27, 27, 27)
                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PolizaMayorCosto)
@@ -412,7 +415,9 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_ClienteIdConsultasActionPerformed
 
     private void MostrarPolizasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarPolizasActionPerformed
-        // TODO add your handling code here:
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultaGeneral("poliza");
+        CajaResultados.setText(resultados);
     }//GEN-LAST:event_MostrarPolizasActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
@@ -432,7 +437,16 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_MostrarFacturasActionPerformed
 
     private void MostrarDesgCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarDesgCienteActionPerformed
-        // TODO add your handling code here:
+        CajaResultados.setText("");
+        CajaResultados.append("Cliente\tPlacas\tModelo\tCosto\n\n");
+        for(int i=1;i<=5;i++){
+            //CajaResultados.append(String.valueOf(i) + "\t");
+            resultados = Avanzado.ConsultaGeneralCliente(i);
+            CajaResultados.append(resultados);
+            resultados = Avanzado.ConsultaGeneralVehiculo(i);
+            CajaResultados.append(resultados);
+            CajaResultados.append("\n");
+        }
     }//GEN-LAST:event_MostrarDesgCienteActionPerformed
 
     private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
@@ -467,18 +481,24 @@ public class Ventana extends javax.swing.JFrame {
         CajaResultados.setText(resultados);
         resultados = Avanzado.ConsultarDeVehiculo("Placas",id);
         CajaResultados.append(resultados);
-        
+        resultados = Avanzado.ConsultaCostoPoliza("poliza","Monto_Total",id);
+        CajaResultados.append(resultados);
+        resultados = Avanzado.ConsultaPrimaAsegurada("poliza","Prima_Asegurada",id);
+        CajaResultados.append(resultados);
     }//GEN-LAST:event_MostrarDesg2ActionPerformed
 
     private void CostoPolizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CostoPolizaActionPerformed
         int id = Integer.parseInt(ClienteIdConsultas.getText());
         CajaResultados.setText("");
-        resultados = Avanzado.Consulta1("poliza","Monto_Total",id);
+        resultados = Avanzado.ConsultaCostoPoliza("poliza","Monto_Total",id);
         CajaResultados.setText(resultados);
     }//GEN-LAST:event_CostoPolizaActionPerformed
 
     private void PrimaAseguradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrimaAseguradaActionPerformed
-        // TODO add your handling code here:
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultaPrimaAsegurada("poliza","Prima_Asegurada",id);
+        CajaResultados.setText(resultados);
     }//GEN-LAST:event_PrimaAseguradaActionPerformed
 
     /**
