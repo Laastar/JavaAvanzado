@@ -23,6 +23,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Avanzado {
 
     /**
@@ -33,13 +42,20 @@ public class Avanzado {
         //-----------------------------------------CONECTANDONOS A LA BASE
         Connection con;
         cargar();
-        con=conectar("jdbc:mysql://localhost:3306/ProyectoJava","root","Youngfolks");
+        con=conectar("jdbc:mysql://localhost:3306/proyectoavanzado","Laastar","123");
         //----------------------------------------------------------------
-        leerXMLF("/home/andrea/Descargas/Facturas.xml","factura",con);
-        leerXMLV("/home/andrea/Descargas/Vehiculos.xml","vehiculo",con);
-        leerXMLC("/home/andrea/Descargas/Clientes.xml","cliente",con);
+        leerXMLF("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Facturas.xml","factura",con);
+        leerXMLV("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Vehiculos.xml","vehiculo",con);
+        leerXMLC("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Clientes.xml","cliente",con);
         
+        IniciarVentana();
     }
+    
+    public static void IniciarVentana(){
+        Ventana abrir = new Ventana();
+        abrir.setVisible(true);
+    }
+    
     //----------------------------------------------CREAR TABLA POLIZA
     public void crearTabla(Connection con){
         String query="CREATE TABLE Poliza(Cliente_id INT PRIMARY_KEY,Factura_id INT AS(Cliente_id),Total INT AS((SELECT Monto FROM Factura NATURAL JOIN Factura_id))*(6.67/12)";
@@ -172,4 +188,207 @@ public class Avanzado {
         
     }
     //--------------------------------------------------------------------------------------------------
+    
+    public static void Actualizar() {
+        Connection conn;
+        PreparedStatement ps;
+        int renglones_afectados;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        int edad = 30;
+        String nombre = "Sofia";
+        int id = 4;
+        String sexo = "F";
+        
+        String query = "UPDATE persona SET edad = ?, nombre = ?, sexo = ? WHERE id = ?";
+        
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, edad);
+            ps.setString(2, nombre);
+            ps.setString(3, sexo);
+            ps.setInt(4, id);
+            renglones_afectados = ps.executeUpdate();
+            System.out.println("Número de renglones actualizados: " + renglones_afectados);
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            
+        }
+
+    }
+    
+    public static void Insertar() {
+        Connection conn;
+        PreparedStatement ps;
+        int renglones_afectados;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "INSERT INTO persona (nombre, edad, sexo) VALUES(?, ?, ?)";
+        String nombre = "Fernanda";
+        int edad = 22;
+        String sexo = "F";
+        
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, nombre);
+            ps.setInt(2, edad);
+            ps.setString(3, sexo);
+            renglones_afectados = ps.executeUpdate();
+            System.out.println("Update exitoso...");
+            System.out.println("Renglones afectados: " + renglones_afectados);
+            ps.close();
+            conn.close();
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    public static void Borrar() {
+        Connection conn;
+        PreparedStatement ps;
+        int id = 6;
+        int renglones_afectados;
+
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/miercoles", "Laastar", "123");
+        
+        String query = "DELETE FROM persona WHERE id = ?";
+
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            renglones_afectados = ps.executeUpdate();
+            System.out.println("Delete exitoso...");
+            System.out.println("Renglones afectados: " + renglones_afectados);
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+
+        }
+    }
+    
+    public static String ConsultaGeneral(String tabla) {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "SELECT * FROM " + tabla;
+        String msj = "";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
+            rs = stmt.getResultSet();
+            System.out.println("Consulta exitosa: ");
+            switch (tabla){
+                case "cliente":
+                    while (rs.next()) {
+                         //Imprime de las columnas de la base de datos con el getInt
+                        msj += "Id: " + rs.getInt("Cliente_id") + " ";
+                        msj += "Nombre: " + rs.getString("Nombre") + " ";
+                        msj += "\n";
+                    }
+                    break;
+                case "factura":
+                    while (rs.next()) {
+                         //Imprime de las columnas de la base de datos con el getInt
+                        msj += "Id: " + rs.getInt("Factura_id") + " ";
+                        msj += "Monto: $" + rs.getInt("Monto") + " ";
+                        msj += "\n";
+                    }
+                    break;
+                case "vehiculo":
+                    while (rs.next()) {
+                         //Imprime de las columnas de la base de datos con el getInt
+                        msj += "Id: " + rs.getInt("id") + " ";
+                        msj += "Nombre: " + rs.getString("nombre") + " ";
+                        msj += "Edad: " + rs.getString("edad") + " ";
+                        msj += "Sexo: " + rs.getString("sexo") + " ";
+                        msj += "\n";
+                    }
+                    break;
+                }
+            
+          
+            stmt.close();
+            rs.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return msj;
+    }
+    
+    public static String Consulta1(String tabla, String atributo, int id) {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "SELECT " + atributo + " FROM " + tabla + " WHEN " + tabla +"_id" + " = " + id;
+        String msj = "";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
+            rs = stmt.getResultSet();
+            System.out.println("Consulta exitosa: ");
+                    while (rs.next()) {
+                        msj += atributo + ": " + rs.getString(atributo) + "\t";
+                        msj += "\n";
+                    }          
+            stmt.close();
+            rs.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return msj;
+    }
+    
+    public static void Consulta(String tabla) {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "SELECT * FROM " + tabla;
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
+            rs = stmt.getResultSet();
+            System.out.println("Consulta exitosa: ");
+            while (rs.next()) {
+                String msj = "";
+                
+                 //Imprime de las columnas de la base de datos con el getInt
+                msj += "Id: " + rs.getInt("id") + " ";
+                msj += "Nombre: " + rs.getString("nombre") + " ";
+                msj += "Edad: " + rs.getString("edad") + " ";
+                msj += "Sexo: " + rs.getString("sexo") + " ";
+                
+                System.out.println(msj);
+            }
+            stmt.close();
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
