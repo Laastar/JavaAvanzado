@@ -17,6 +17,7 @@ public class Ventana extends javax.swing.JFrame {
      */
     public Ventana() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -48,24 +49,29 @@ public class Ventana extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         NuevaDireccion = new javax.swing.JTextField();
         NuevoCostoTotal = new javax.swing.JTextField();
-        NuevaMarcaModelo = new javax.swing.JTextField();
+        NuevoModelo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         PolizaMayorCosto = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        VehículoIdEntrada = new javax.swing.JTextField();
+        FacturaIdEntrada = new javax.swing.JTextField();
         VehiculoIdEntrada = new javax.swing.JTextField();
         ClienteIdConsultas = new javax.swing.JTextField();
-        Actualizar = new javax.swing.JButton();
+        ActualizarCosto = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        NuevaMarca = new javax.swing.JTextField();
+        ActualizarDireccion = new javax.swing.JButton();
+        ActualizarMarca = new javax.swing.JButton();
+        ActualizarModelo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         CajaResultados = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Consultas");
@@ -110,14 +116,39 @@ public class Ventana extends javax.swing.JFrame {
         });
 
         PlacasVehiculo.setText("Placas de vehículo");
+        PlacasVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PlacasVehiculoActionPerformed(evt);
+            }
+        });
 
         MostrarDesg2.setText("Desglose 2");
+        MostrarDesg2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarDesg2ActionPerformed(evt);
+            }
+        });
 
         PrimaAsegurada.setText("Prima asegurada");
+        PrimaAsegurada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrimaAseguradaActionPerformed(evt);
+            }
+        });
 
         CostoPoliza.setText("Costo póliza");
+        CostoPoliza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CostoPolizaActionPerformed(evt);
+            }
+        });
 
         MostrarDesg1.setText("Desglose 1");
+        MostrarDesg1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarDesg1ActionPerformed(evt);
+            }
+        });
 
         MostrarPolizas.setText("Mostra pólizas");
         MostrarPolizas.addActionListener(new java.awt.event.ActionListener() {
@@ -136,19 +167,24 @@ public class Ventana extends javax.swing.JFrame {
 
         jLabel5.setText("Nueva dirección");
 
-        jLabel6.setText("Nueva marca o modelo");
+        jLabel6.setText("Nueva marca");
 
         jLabel7.setText("Factura ID");
 
         jLabel8.setText("Vehículo ID");
 
         PolizaMayorCosto.setText("Poliza Mayor Costo");
+        PolizaMayorCosto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PolizaMayorCostoActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Nuevo costo total");
 
-        VehículoIdEntrada.addActionListener(new java.awt.event.ActionListener() {
+        FacturaIdEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VehículoIdEntradaActionPerformed(evt);
+                FacturaIdEntradaActionPerformed(evt);
             }
         });
 
@@ -164,10 +200,33 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
-        Actualizar.setText("Actualizar");
-        Actualizar.addActionListener(new java.awt.event.ActionListener() {
+        ActualizarCosto.setText("Actualizar");
+        ActualizarCosto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ActualizarActionPerformed(evt);
+                ActualizarCostoActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Nuevo modelo");
+
+        ActualizarDireccion.setText("Actualizar");
+        ActualizarDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarDireccionActionPerformed(evt);
+            }
+        });
+
+        ActualizarMarca.setText("ActMarca");
+        ActualizarMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarMarcaActionPerformed(evt);
+            }
+        });
+
+        ActualizarModelo.setText("ActModel");
+        ActualizarModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarModeloActionPerformed(evt);
             }
         });
 
@@ -175,10 +234,6 @@ public class Ventana extends javax.swing.JFrame {
         AreaInteraccion.setLayout(AreaInteraccionLayout);
         AreaInteraccionLayout.setHorizontalGroup(
             AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AreaInteraccionLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(129, 129, 129))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AreaInteraccionLayout.createSequentialGroup()
                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AreaInteraccionLayout.createSequentialGroup()
@@ -200,11 +255,10 @@ public class Ventana extends javax.swing.JFrame {
                                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(PrimaAsegurada, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                                     .addComponent(CostoPoliza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 2, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AreaInteraccionLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Actualizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AreaInteraccionLayout.createSequentialGroup()
                                 .addComponent(MostrarPolizas, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -215,41 +269,57 @@ public class Ventana extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(ClienteIdConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AreaInteraccionLayout.createSequentialGroup()
-                                .addComponent(MostrarDesg1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(MostrarDesg1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(MostrarDesg2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(Nombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(AreaInteraccionLayout.createSequentialGroup()
-                                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(NuevaDireccion, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(AreaInteraccionLayout.createSequentialGroup()
-                                        .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(AreaInteraccionLayout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(ClienteIdActualizacionEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jLabel5))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(NuevaMarcaModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AreaInteraccionLayout.createSequentialGroup()
+                                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AreaInteraccionLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ClienteIdActualizacionEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(NuevaDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AreaInteraccionLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(NuevaMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AreaInteraccionLayout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(NuevoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(AreaInteraccionLayout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(VehiculoIdEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel6))
+                                        .addComponent(VehiculoIdEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(20, 20, 20)
                                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(AreaInteraccionLayout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(VehículoIdEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(14, 14, 14))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AreaInteraccionLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9)
-                                            .addComponent(NuevoCostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                    .addComponent(NuevoCostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel9)
+                                        .addGroup(AreaInteraccionLayout.createSequentialGroup()
+                                            .addComponent(jLabel7)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(FacturaIdEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AreaInteraccionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AreaInteraccionLayout.createSequentialGroup()
+                        .addComponent(ActualizarModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel2)
+                        .addGap(129, 129, 129))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AreaInteraccionLayout.createSequentialGroup()
+                        .addComponent(ActualizarDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                        .addGap(26, 26, 26)
+                        .addComponent(ActualizarMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ActualizarCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         AreaInteraccionLayout.setVerticalGroup(
             AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,22 +339,27 @@ public class Ventana extends javax.swing.JFrame {
                 .addComponent(Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PlacasVehiculo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CostoPoliza)
-                    .addComponent(Direccion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PrimaAsegurada)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MostrarDesg1)
-                    .addComponent(MostrarDesg2))
+                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AreaInteraccionLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CostoPoliza)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PrimaAsegurada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MostrarDesg2)
+                            .addComponent(MostrarDesg1)))
+                    .addGroup(AreaInteraccionLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(Direccion)))
                 .addGap(27, 27, 27)
                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PolizaMayorCosto)
                     .addComponent(MostrarPolizas))
-                .addGap(34, 34, 34)
-                .addComponent(jLabel2)
+                .addGap(30, 30, 30)
+                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(ActualizarModelo))
                 .addGap(18, 18, 18)
                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ClienteIdActualizacionEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,20 +367,25 @@ public class Ventana extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jLabel7)
                     .addComponent(VehiculoIdEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(VehículoIdEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FacturaIdEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(NuevaMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevoCostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NuevaDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NuevaMarcaModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Actualizar)
-                .addGap(19, 19, 19))
+                    .addComponent(NuevoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ActualizarCosto)
+                    .addComponent(ActualizarDireccion)
+                    .addComponent(ActualizarMarca))
+                .addGap(12, 12, 12))
         );
 
         CajaResultados.setColumns(20);
@@ -325,7 +405,7 @@ public class Ventana extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(159, 159, 159)
                 .addComponent(jLabel10)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,16 +443,19 @@ public class Ventana extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DireccionActionPerformed
-        
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.Consulta1("cliente","Direccion",id);
+        CajaResultados.setText(resultados);
     }//GEN-LAST:event_DireccionActionPerformed
 
     private void ClienteIdActualizacionEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteIdActualizacionEntradaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ClienteIdActualizacionEntradaActionPerformed
 
-    private void VehículoIdEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VehículoIdEntradaActionPerformed
+    private void FacturaIdEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacturaIdEntradaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_VehículoIdEntradaActionPerformed
+    }//GEN-LAST:event_FacturaIdEntradaActionPerformed
 
     private void VehiculoIdEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VehiculoIdEntradaActionPerformed
         // TODO add your handling code here:
@@ -383,34 +466,151 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_ClienteIdConsultasActionPerformed
 
     private void MostrarPolizasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarPolizasActionPerformed
-        // TODO add your handling code here:
+        CajaResultados.setText("");
+        CajaResultados.setText("Poliza ID\tFecha de Inicio\tFecha de Vencimiento\n\n");
+        for(int i=1;i<=4;i++){
+            resultados = Avanzado.ConsultaFechaPolizas(i);
+            CajaResultados.append(resultados);
+            CajaResultados.append("\n");
+        }
     }//GEN-LAST:event_MostrarPolizasActionPerformed
 
-    private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
-        Avanzado.Actualizar();
-    }//GEN-LAST:event_ActualizarActionPerformed
+    private void ActualizarCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarCostoActionPerformed
+        //int ClienteId = Integer.parseInt(ClienteIdActualizacionEntrada.getText());
+        //int VehiculoId = Integer.parseInt(VehiculoIdEntrada.getText());
+        int FacturaId = Integer.parseInt(FacturaIdEntrada.getText());
+        //String nuevaDireccion = NuevaDireccion.getText();
+        //String nuevaMarca = NuevaMarca.getText();
+        //String nuevoModelo = NuevoModelo.getText();
+        int nuevoCosto = Integer.parseInt(NuevoCostoTotal.getText());
+        //Avanzado.ActualizarDireccion(nuevaDireccion,ClienteId);
+        //Avanzado.ActualizarString("cliente","Direccion",nuevaDireccion,ClienteId);
+        //Avanzado.ActualizarString("cliente","Direccion",nuevaDireccion,ClienteId);
+        //Avanzado.ActualizarString("vehiculo","Marca",nuevaMarca,VehiculoId);
+        //Avanzado.ActualizarString("vehiculo","Modelo",nuevoModelo,VehiculoId);
+        Avanzado.ActualizarInt("factura","Monto",nuevoCosto,FacturaId);
+    }//GEN-LAST:event_ActualizarCostoActionPerformed
 
     private void MostrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarClientesActionPerformed
-        resultados = Avanzado.ConsultaGeneral("cliente");
         CajaResultados.setText("");
+        resultados = Avanzado.ConsultaGeneral("cliente");
         CajaResultados.setText(resultados);
     }//GEN-LAST:event_MostrarClientesActionPerformed
 
     private void MostrarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarFacturasActionPerformed
-        resultados = Avanzado.ConsultaGeneral("factura");
         CajaResultados.setText("");
+        resultados = Avanzado.ConsultaGeneral("factura");
         CajaResultados.setText(resultados);
     }//GEN-LAST:event_MostrarFacturasActionPerformed
 
     private void MostrarDesgCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarDesgCienteActionPerformed
-        // TODO add your handling code here:
+        CajaResultados.setText("");
+        CajaResultados.setText("Cliente\tPlacas\tModelo\tCosto\n\n");
+        for(int i=1;i<=4;i++){
+            //CajaResultados.append(String.valueOf(i) + "\t");
+            resultados = Avanzado.ConsultaGeneralCliente(i);
+            CajaResultados.append(resultados);
+            resultados = Avanzado.ConsultaGeneralVehiculo(i);
+            CajaResultados.append(resultados);
+            CajaResultados.append("\n");
+        }
     }//GEN-LAST:event_MostrarDesgCienteActionPerformed
 
     private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
-        resultados = Avanzado.Consulta1("cliente","nombre");
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
         CajaResultados.setText("");
+        resultados = Avanzado.Consulta1("cliente","Nombre",id);
         CajaResultados.setText(resultados);
     }//GEN-LAST:event_NombreActionPerformed
+
+    private void PlacasVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlacasVehiculoActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultarDeVehiculo("Placas",id);
+        CajaResultados.setText(resultados);
+    }//GEN-LAST:event_PlacasVehiculoActionPerformed
+
+    private void MostrarDesg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarDesg1ActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.Consulta1("cliente","Nombre",id);
+        CajaResultados.setText(resultados);
+        resultados = Avanzado.ConsultarDeVehiculo("Placas",id);
+        CajaResultados.append(resultados);
+        resultados = Avanzado.Consulta1("cliente","Direccion",id);
+        CajaResultados.append(resultados);
+    }//GEN-LAST:event_MostrarDesg1ActionPerformed
+
+    private void MostrarDesg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarDesg2ActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.Consulta1("cliente","Nombre",id);
+        CajaResultados.setText(resultados);
+        resultados = Avanzado.ConsultarDeVehiculo("Placas",id);
+        CajaResultados.append(resultados);
+        resultados = Avanzado.ConsultaCostoPoliza("poliza","Monto_Total",id);
+        CajaResultados.append(resultados);
+        resultados = Avanzado.ConsultaPrimaAsegurada("poliza","Prima_Asegurada",id);
+        CajaResultados.append(resultados);
+    }//GEN-LAST:event_MostrarDesg2ActionPerformed
+
+    private void CostoPolizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CostoPolizaActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultaCostoPoliza("poliza","Monto_Total",id);
+        CajaResultados.setText(resultados);
+    }//GEN-LAST:event_CostoPolizaActionPerformed
+
+    private void PrimaAseguradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrimaAseguradaActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultaPrimaAsegurada("poliza","Prima_Asegurada",id);
+        CajaResultados.setText(resultados);
+    }//GEN-LAST:event_PrimaAseguradaActionPerformed
+
+    private void PolizaMayorCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PolizaMayorCostoActionPerformed
+        
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultaPrimaAsegurada("poliza","Prima_Asegurada",id);
+        CajaResultados.setText(resultados);
+    }//GEN-LAST:event_PolizaMayorCostoActionPerformed
+
+    private void ActualizarDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarDireccionActionPerformed
+        int ClienteId = Integer.parseInt(ClienteIdActualizacionEntrada.getText());
+        //int VehiculoId = Integer.parseInt(VehiculoIdEntrada.getText());
+        //int FacturaId = Integer.parseInt(FacturaIdEntrada.getText());
+        String nuevaDireccion = NuevaDireccion.getText();
+        //String nuevaMarca = NuevaMarca.getText();
+        //String nuevoModelo = NuevoModelo.getText();
+        //int nuevoCosto = Integer.parseInt(NuevoCostoTotal.getText());
+        //Avanzado.ActualizarDireccion(nuevaDireccion,ClienteId);
+        Avanzado.ActualizarString("cliente","Direccion",nuevaDireccion,ClienteId);
+        //Avanzado.ActualizarString("cliente","Direccion",nuevaDireccion,ClienteId);
+        //Avanzado.ActualizarString("vehiculo","Marca",nuevaMarca,VehiculoId);
+        //Avanzado.ActualizarString("vehiculo","Modelo",nuevoModelo,VehiculoId);
+        //Avanzado.ActualizarInt("factura","Monto",1,FacturaId);
+    }//GEN-LAST:event_ActualizarDireccionActionPerformed
+
+    private void ActualizarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarMarcaActionPerformed
+        int ClienteId = Integer.parseInt(ClienteIdActualizacionEntrada.getText());
+        //int VehiculoId = Integer.parseInt(VehiculoIdEntrada.getText());
+        //int FacturaId = Integer.parseInt(FacturaIdEntrada.getText());
+        String nuevaDireccion = NuevaDireccion.getText();
+        //String nuevaMarca = NuevaMarca.getText();
+        //String nuevoModelo = NuevoModelo.getText();
+        //int nuevoCosto = Integer.parseInt(NuevoCostoTotal.getText());
+        //Avanzado.ActualizarDireccion(nuevaDireccion,ClienteId);
+        Avanzado.ActualizarString("cliente","Direccion",nuevaDireccion,ClienteId);
+        //Avanzado.ActualizarString("cliente","Direccion",nuevaDireccion,ClienteId);
+        //Avanzado.ActualizarString("vehiculo","Marca",nuevaMarca,VehiculoId);
+        //Avanzado.ActualizarString("vehiculo","Modelo",nuevoModelo,VehiculoId);
+        //Avanzado.ActualizarInt("factura","Monto",1,FacturaId);
+    }//GEN-LAST:event_ActualizarMarcaActionPerformed
+
+    private void ActualizarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ActualizarModeloActionPerformed
 
     /**
      * @param args the command line arguments
@@ -448,13 +648,17 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Actualizar;
+    private javax.swing.JButton ActualizarCosto;
+    private javax.swing.JButton ActualizarDireccion;
+    private javax.swing.JButton ActualizarMarca;
+    private javax.swing.JButton ActualizarModelo;
     private javax.swing.JPanel AreaInteraccion;
     private javax.swing.JTextArea CajaResultados;
     private javax.swing.JTextField ClienteIdActualizacionEntrada;
     private javax.swing.JTextField ClienteIdConsultas;
     private javax.swing.JButton CostoPoliza;
     private javax.swing.JButton Direccion;
+    private javax.swing.JTextField FacturaIdEntrada;
     private javax.swing.JButton MostrarClientes;
     private javax.swing.JButton MostrarDesg1;
     private javax.swing.JButton MostrarDesg2;
@@ -463,15 +667,16 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton MostrarPolizas;
     private javax.swing.JButton Nombre;
     private javax.swing.JTextField NuevaDireccion;
-    private javax.swing.JTextField NuevaMarcaModelo;
+    private javax.swing.JTextField NuevaMarca;
     private javax.swing.JTextField NuevoCostoTotal;
+    private javax.swing.JTextField NuevoModelo;
     private javax.swing.JButton PlacasVehiculo;
     private javax.swing.JButton PolizaMayorCosto;
     private javax.swing.JButton PrimaAsegurada;
     private javax.swing.JTextField VehiculoIdEntrada;
-    private javax.swing.JTextField VehículoIdEntrada;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
