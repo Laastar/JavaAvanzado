@@ -48,10 +48,10 @@ public class Avanzado {
         leerXMLV("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Vehiculos.xml","vehiculo",con);
         leerXMLC("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Clientes.xml","cliente",con);
         
-        IniciarVentana();
+        
     }
     
-    public static void IniciarVentana(){
+    public void abrir(){
         Ventana abrir = new Ventana();
         abrir.setVisible(true);
     }
@@ -289,8 +289,9 @@ public class Avanzado {
             rs = stmt.getResultSet();
             System.out.println("Consulta exitosa: ");
             switch (tabla){
-                case "cliente":
+                case "clientes":
                     while (rs.next()) {
+                        msj = "";
                          //Imprime de las columnas de la base de datos con el getInt
                         msj += "Id: " + rs.getInt("Cliente_id") + " ";
                         msj += "Nombre: " + rs.getString("Nombre") + " ";
@@ -299,20 +300,27 @@ public class Avanzado {
                     break;
                 case "factura":
                     while (rs.next()) {
+                        msj = "";
+
                          //Imprime de las columnas de la base de datos con el getInt
                         msj += "Id: " + rs.getInt("Factura_id") + " ";
                         msj += "Monto: $" + rs.getInt("Monto") + " ";
-                        msj += "\n";
+
+                        System.out.println(msj);
+                        
                     }
                     break;
                 case "vehiculo":
                     while (rs.next()) {
+                        msj = "";
+
                          //Imprime de las columnas de la base de datos con el getInt
                         msj += "Id: " + rs.getInt("id") + " ";
                         msj += "Nombre: " + rs.getString("nombre") + " ";
                         msj += "Edad: " + rs.getString("edad") + " ";
                         msj += "Sexo: " + rs.getString("sexo") + " ";
-                        msj += "\n";
+
+                        System.out.println(msj);
                     }
                     break;
                 }
@@ -328,7 +336,7 @@ public class Avanzado {
         return msj;
     }
     
-    public static String Consulta1(String tabla, String atributo, int id) {
+    public static String Consulta1(String tabla, String atributo) {
         Connection conn;
         Statement stmt;
         ResultSet rs;
@@ -336,7 +344,7 @@ public class Avanzado {
         cargar();
         conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
         
-        String query = "SELECT " + atributo + " FROM " + tabla + " WHEN " + tabla +"_id" + " = " + id;
+        String query = "SELECT " + atributo + " FROM " + tabla;
         String msj = "";
         
         try {
@@ -344,10 +352,44 @@ public class Avanzado {
             rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
             rs = stmt.getResultSet();
             System.out.println("Consulta exitosa: ");
+            switch (tabla){
+                case "clientes":
                     while (rs.next()) {
-                        msj += atributo + ": " + rs.getString(atributo) + "\t";
+                        msj = "";
+                         //Imprime de las columnas de la base de datos con el getInt
+                        msj += "Id: " + rs.getInt("Cliente_id") + " ";
+                        msj += "Nombre: " + rs.getString("Nombre") + " ";
                         msj += "\n";
-                    }          
+                    }
+                    break;
+                case "factura":
+                    while (rs.next()) {
+                        msj = "";
+
+                         //Imprime de las columnas de la base de datos con el getInt
+                        msj += "Id: " + rs.getInt("Factura_id") + " ";
+                        msj += "Monto: $" + rs.getInt("Monto") + " ";
+
+                        System.out.println(msj);
+                        
+                    }
+                    break;
+                case "vehiculo":
+                    while (rs.next()) {
+                        msj = "";
+
+                         //Imprime de las columnas de la base de datos con el getInt
+                        msj += "Id: " + rs.getInt("id") + " ";
+                        msj += "Nombre: " + rs.getString("nombre") + " ";
+                        msj += "Edad: " + rs.getString("edad") + " ";
+                        msj += "Sexo: " + rs.getString("sexo") + " ";
+
+                        System.out.println(msj);
+                    }
+                    break;
+                }
+            
+          
             stmt.close();
             rs.close();
             conn.close();

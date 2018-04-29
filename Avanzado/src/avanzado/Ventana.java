@@ -17,7 +17,6 @@ public class Ventana extends javax.swing.JFrame {
      */
     public Ventana() {
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -392,14 +391,14 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_ActualizarActionPerformed
 
     private void MostrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarClientesActionPerformed
-        CajaResultados.setText("");
         resultados = Avanzado.ConsultaGeneral("cliente");
+        CajaResultados.setText("");
         CajaResultados.setText(resultados);
     }//GEN-LAST:event_MostrarClientesActionPerformed
 
     private void MostrarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarFacturasActionPerformed
-        CajaResultados.setText("");
         resultados = Avanzado.ConsultaGeneral("factura");
+        CajaResultados.setText("");
         CajaResultados.setText(resultados);
     }//GEN-LAST:event_MostrarFacturasActionPerformed
 
@@ -408,9 +407,8 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_MostrarDesgCienteActionPerformed
 
     private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
-        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        resultados = Avanzado.Consulta1("cliente","nombre");
         CajaResultados.setText("");
-        resultados = Avanzado.Consulta1("cliente","Nombre",id);
         CajaResultados.setText(resultados);
     }//GEN-LAST:event_NombreActionPerformed
 
