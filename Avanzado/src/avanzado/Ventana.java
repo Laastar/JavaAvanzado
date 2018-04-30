@@ -416,8 +416,13 @@ public class Ventana extends javax.swing.JFrame {
 
     private void MostrarPolizasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarPolizasActionPerformed
         CajaResultados.setText("");
-        resultados = Avanzado.ConsultaGeneral("poliza");
-        CajaResultados.setText(resultados);
+        CajaResultados.setText("Poliza ID\tFecha de Inicio\tFecha de Vencimiento\n\n");
+        for(int i=1;i<=4;i++){
+            CajaResultados.append(String.valueOf(i) + "\t");
+            resultados = Avanzado.ConsultaFechaPolizas();
+            CajaResultados.append(resultados);
+            CajaResultados.append("\n");
+        }
     }//GEN-LAST:event_MostrarPolizasActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
@@ -438,8 +443,8 @@ public class Ventana extends javax.swing.JFrame {
 
     private void MostrarDesgCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarDesgCienteActionPerformed
         CajaResultados.setText("");
-        CajaResultados.append("Cliente\tPlacas\tModelo\tCosto\n\n");
-        for(int i=1;i<=5;i++){
+        CajaResultados.setText("Cliente\tPlacas\tModelo\tCosto\n\n");
+        for(int i=1;i<=4;i++){
             //CajaResultados.append(String.valueOf(i) + "\t");
             resultados = Avanzado.ConsultaGeneralCliente(i);
             CajaResultados.append(resultados);

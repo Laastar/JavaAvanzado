@@ -50,6 +50,8 @@ public class Avanzado {
         leerXMLV("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Vehiculos.xml","vehiculo",con);
         leerXMLC("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Clientes.xml","cliente",con);
         CrearTablaPoliza();
+        CrearTablaFechasPoliza();
+        CargarTablaFechasPoliza();
         //crearTabla("");
         IniciarVentana();
     }
@@ -73,7 +75,19 @@ public class Avanzado {
         cargar();
         conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
         
-        String query = "TRUNCATE TABLE vehiculo";
+        String query = "TRUNCATE TABLE poliza_fechas";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query 
+            stmt.close();
+            System.out.println("Truncado Poliza Fechas Correcto");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        query = "TRUNCATE TABLE vehiculo";
         
         try {
             stmt = conn.createStatement();     //Creamos el statement
@@ -271,12 +285,65 @@ public class Avanzado {
         conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
         
         String query = "CREATE OR REPLACE VIEW POLIZA AS "
-                     + "SELECT c.cliente_id poliza_id, c.nombre, f.monto, (f.monto*(6.67/12)/100) monto_total, (f.monto*0.85) prima_asegurada "
+                     + "SELECT c.cliente_id poliza_id, c.nombre, f.monto, (f.monto*(6.67/12)/100) monto_total, "
+                     + "(f.monto*0.85) prima_asegurada, fecha_inicio, fecha_vencimiento "
                      + "FROM cliente c INNER JOIN factura f ON c.cliente_id = f.factura_id";
         
         try {
             stmt = conn.createStatement();     //Creamos el statement
             stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query      
+            stmt.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void CrearTablaFechasPoliza() {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "CREATE TABLE poliza_fechas( "
+                     + "poliza_id INT(10), "
+                     + "fecha_inicio DATE, "
+                     + "fecha_vencimiento DATE"
+                     + ") ENGINE=InnoDB DEFAULT CHARSET=latin1";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query      
+            System.out.println("Creación de tabla de fechas_poliza exitosa");
+            stmt.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void CargarTablaFechasPoliza() {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "INSERT INTO poliza_fechas ('poliza_id','fecha_inicio','fecha_vencimiento') VALUES "
+                     + "(1,TO_DATE('24/09/2017','dd/mm/yyyy'),TO_DATE('24/09/2018','dd/mm/yyyy')), "
+                     + "(2,TO_DATE('12/11/2017','dd/mm/yyyy'),TO_DATE('12/11/2018','dd/mm/yyyy')), "
+                     + "(3,TO_DATE('22/01/2018','dd/mm/yyyy'),TO_DATE('22/01/2019','dd/mm/yyyy')), "
+                     + "(4,TO_DATE('16/03/2018','dd/mm/yyyy'),TO_DATE('16/03/2019','dd/mm/yyyy'))";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query      
+            System.out.println("Carga de tabla de fechas_poliza exitosa");
             stmt.close();
             conn.close();
             
@@ -468,7 +535,7 @@ public class Avanzado {
                 //Imprime de las columnas de la base de datos con el getInt
                 msj += rs.getString("placas") + "\t";
                 msj += rs.getString("modelo") + "\t";
-                msj += "$" + rs.getString("costo") + "\t";
+                msj += "$" + rs.getString("monto") + "\t";
             }
             
             stmt.close();
@@ -593,6 +660,40 @@ public class Avanzado {
                         msj += atributo + ": " + rs.getString(atributo) + "\t";
                         msj += "\n";
                     }          
+            stmt.close();
+            rs.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return msj;
+    }
+    
+    public static String ConsultaFechaPolizas() {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "SELECT * FROM poliza_fechas";
+        String msj = "";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
+            rs = stmt.getResultSet();
+            System.out.println("Consulta exitosa: ");
+
+                    while (rs.next()) {
+                         //Imprime de las columnas de la base de datos con el getInt
+                        msj += rs.getInt("poliza_id") + "\t";
+                        msj += rs.getDate("fecha_inicio") + "\t";
+                        msj += rs.getDate("fecha_vencimiento") + "\t";
+                    }
+            
             stmt.close();
             rs.close();
             conn.close();
