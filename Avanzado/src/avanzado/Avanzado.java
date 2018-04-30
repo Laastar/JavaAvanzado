@@ -334,11 +334,11 @@ public class Avanzado {
         cargar();
         conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
         
-        String query = "INSERT INTO poliza_fechas ('poliza_id','fecha_inicio','fecha_vencimiento') VALUES "
-                     + "(1,TO_DATE('24/09/2017','dd/mm/yyyy'),TO_DATE('24/09/2018','dd/mm/yyyy')), "
-                     + "(2,TO_DATE('12/11/2017','dd/mm/yyyy'),TO_DATE('12/11/2018','dd/mm/yyyy')), "
-                     + "(3,TO_DATE('22/01/2018','dd/mm/yyyy'),TO_DATE('22/01/2019','dd/mm/yyyy')), "
-                     + "(4,TO_DATE('16/03/2018','dd/mm/yyyy'),TO_DATE('16/03/2019','dd/mm/yyyy'))";
+        String query = "INSERT INTO poliza_fechas (poliza_id,fecha_inicio,fecha_vencimiento) VALUES "
+                     + "(1, '2018-07-04', '2018-07-04'), "
+                     + "(2, '2017-11-12', '2018-11-12'), "
+                     + "(3, '2018-01-22', '2019-01-22'), "
+                     + "(4, '2018-03-16', '2019-03-16')";
         
         try {
             stmt = conn.createStatement();     //Creamos el statement
@@ -353,6 +353,164 @@ public class Avanzado {
     }
     
     public static void Actualizar() {
+        Connection conn;
+        PreparedStatement ps;
+        int renglones_afectados;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        int edad = 30;
+        String nombre = "Sofia";
+        int id = 4;
+        String sexo = "F";
+        
+        String query = "UPDATE persona SET edad = ?, nombre = ?, sexo = ? WHERE id = ?";
+        
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, edad);
+            ps.setString(2, nombre);
+            ps.setString(3, sexo);
+            ps.setInt(4, id);
+            renglones_afectados = ps.executeUpdate();
+            System.out.println("Número de renglones actualizados: " + renglones_afectados);
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            
+        }
+
+    }
+    
+    public static void ActualizarDireccion(String NuevaDireccion, int id) {
+        Connection conn;
+        PreparedStatement ps;
+        int renglones_afectados;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "UPDATE cliente SET Direccion = ? WHERE Cliente_id = ?";
+        
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, NuevaDireccion);
+            ps.setInt(2, id);
+            renglones_afectados = ps.executeUpdate();
+            System.out.println("Número de renglones actualizados: " + renglones_afectados);
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    
+    public static void ActualizarString(String tabla, String atributo, String NuevoValor, int id) {
+        Connection conn;
+        PreparedStatement ps;
+        int renglones_afectados;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "UPDATE " + tabla + " SET " + atributo + " = ? WHERE " + tabla + "_id = ?";
+        
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setString(1, NuevoValor);
+            ps.setInt(2, id);
+            renglones_afectados = ps.executeUpdate();
+            System.out.println("Número de renglones actualizados: " + renglones_afectados);
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    
+    public static void ActualizarInt(String tabla, String atributo, int NuevoValor, int id) {
+        Connection conn;
+        PreparedStatement ps;
+        int renglones_afectados;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "UPDATE " + tabla + " SET " + atributo + " = ? WHERE " + tabla + "_id = ?";
+        
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, NuevoValor);
+            ps.setInt(2, id);
+            renglones_afectados = ps.executeUpdate();
+            System.out.println("Número de renglones actualizados: " + renglones_afectados);
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    
+    public static void ActualizarMarca() {
+        Connection conn;
+        PreparedStatement ps;
+        int renglones_afectados;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        
+        String query = "UPDATE vehiculo SET Marca = ? WHERE Vehiculo_id = ?";
+        
+        try {
+            ps = conn.prepareStatement(query);
+            
+            renglones_afectados = ps.executeUpdate();
+            System.out.println("Número de renglones actualizados: " + renglones_afectados);
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            
+        }
+
+    }
+    
+    public static void ActualizarModelo() {
+        Connection conn;
+        PreparedStatement ps;
+        int renglones_afectados;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        int edad = 30;
+        String nombre = "Sofia";
+        int id = 4;
+        String sexo = "F";
+        
+        String query = "UPDATE persona SET edad = ?, nombre = ?, sexo = ? WHERE id = ?";
+        
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, edad);
+            ps.setString(2, nombre);
+            ps.setString(3, sexo);
+            ps.setInt(4, id);
+            renglones_afectados = ps.executeUpdate();
+            System.out.println("Número de renglones actualizados: " + renglones_afectados);
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            
+        }
+
+    }
+    
+    public static void ActualizarCosto() {
         Connection conn;
         PreparedStatement ps;
         int renglones_afectados;
@@ -670,7 +828,7 @@ public class Avanzado {
         return msj;
     }
     
-    public static String ConsultaFechaPolizas() {
+    public static String ConsultaFechaPolizas(int id) {
         Connection conn;
         Statement stmt;
         ResultSet rs;
@@ -678,7 +836,7 @@ public class Avanzado {
         cargar();
         conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
         
-        String query = "SELECT * FROM poliza_fechas";
+        String query = "SELECT * FROM poliza_fechas WHERE poliza_id =" + id;
         String msj = "";
         
         try {
