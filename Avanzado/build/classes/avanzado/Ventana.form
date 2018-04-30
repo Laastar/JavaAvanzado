@@ -108,7 +108,7 @@
                                       <Component id="ClienteIdConsultas" min="-2" pref="29" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="MostrarDesg1" max="32767" attributes="0"/>
+                                      <Component id="MostrarDesg1" min="-2" pref="175" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="MostrarDesg2" max="32767" attributes="0"/>
                                   </Group>
@@ -181,17 +181,22 @@
                       <Component id="Nombre" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="PlacasVehiculo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="CostoPoliza" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="Direccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="PrimaAsegurada" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="MostrarDesg1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="MostrarDesg2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="CostoPoliza" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="PrimaAsegurada" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="MostrarDesg2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="MostrarDesg1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              <Component id="Direccion" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -289,26 +294,41 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Placas de veh&#xed;culo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PlacasVehiculoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="MostrarDesg2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Desglose 2"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MostrarDesg2ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="PrimaAsegurada">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Prima asegurada"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrimaAseguradaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="CostoPoliza">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Costo p&#xf3;liza"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CostoPolizaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="MostrarDesg1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Desglose 1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MostrarDesg1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="MostrarPolizas">
               <Properties>

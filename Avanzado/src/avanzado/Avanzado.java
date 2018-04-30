@@ -42,12 +42,15 @@ public class Avanzado {
         //-----------------------------------------CONECTANDONOS A LA BASE
         Connection con;
         cargar();
+        
         con=conectar("jdbc:mysql://localhost:3306/proyectoavanzado","Laastar","123");
+        TirarTodo();
         //----------------------------------------------------------------
         leerXMLF("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Facturas.xml","factura",con);
         leerXMLV("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Vehiculos.xml","vehiculo",con);
         leerXMLC("C:\\Users\\TensinUriel\\Downloads\\ProyectoJavaAvanzado\\Clientes.xml","cliente",con);
-        
+        CrearTablaPoliza();
+        //crearTabla("");
         IniciarVentana();
     }
     
@@ -63,6 +66,76 @@ public class Avanzado {
     }
     
     //---------------------------------------------------------
+    public static void TirarTodo() {
+        Connection conn;
+        Statement stmt;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "TRUNCATE TABLE vehiculo";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query 
+            stmt.close();
+            System.out.println("Truncado Vehiculo Correcto");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        query = "TRUNCATE TABLE cliente";
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query 
+            stmt.close();
+            System.out.println("Truncado Cliente Correcto");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        query = "ALTER TABLE vehiculo "
+                + "DROP FOREIGN KEY fk_factura_id";
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query 
+            stmt.close();
+            System.out.println("Truncado Factura Correcto");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        
+        query = "TRUNCATE TABLE factura";
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query 
+            stmt.close();
+            System.out.println("Truncado Factura Correcto");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        
+        query = "ALTER TABLE vehiculo "
+                + "ADD CONSTRAINT fk_factura_id "
+                + "FOREIGN KEY (factura_id) "
+                + "REFERENCES factura (factura_id)";
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query 
+            stmt.close();
+            conn.close();
+            System.out.println("Truncado Factura Correcto");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 //-----------------------------------------------------------------------------------------------PARA INSERTAR LOS VALORES
     public static void leerXMLV(String nom_arch,String etiqueta,Connection con){
             PreparedStatement ps;
@@ -189,6 +262,29 @@ public class Avanzado {
     }
     //--------------------------------------------------------------------------------------------------
     
+    public static void CrearTablaPoliza() {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "CREATE OR REPLACE VIEW POLIZA AS "
+                     + "SELECT c.cliente_id poliza_id, c.nombre, f.monto, (f.monto*(6.67/12)/100) monto_total, (f.monto*0.85) prima_asegurada "
+                     + "FROM cliente c INNER JOIN factura f ON c.cliente_id = f.factura_id";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            stmt.executeUpdate(query);     //Guardamos el resultado de nuestra query      
+            stmt.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static void Actualizar() {
         Connection conn;
         PreparedStatement ps;
@@ -305,19 +401,76 @@ public class Avanzado {
                         msj += "\n";
                     }
                     break;
-                case "vehiculo":
-                    while (rs.next()) {
-                         //Imprime de las columnas de la base de datos con el getInt
-                        msj += "Id: " + rs.getInt("id") + " ";
-                        msj += "Nombre: " + rs.getString("nombre") + " ";
-                        msj += "Edad: " + rs.getString("edad") + " ";
-                        msj += "Sexo: " + rs.getString("sexo") + " ";
-                        msj += "\n";
-                    }
-                    break;
                 }
             
-          
+            stmt.close();
+            rs.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return msj;
+    }
+    
+    public static String ConsultaGeneralCliente(int id) {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "SELECT * FROM cliente WHERE cliente_id = " + id;
+        String msj = "";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
+            rs = stmt.getResultSet();
+            System.out.println("Consulta exitosa: ");
+
+                    while (rs.next()) {
+                         //Imprime de las columnas de la base de datos con el getInt
+                        msj += rs.getString("Nombre") + "\t";
+                    }
+            
+            stmt.close();
+            rs.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return msj;
+    }
+    
+    public static String ConsultaGeneralVehiculo(int id) {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "SELECT Placas, Modelo, Monto "
+                     + "FROM vehiculo INNER JOIN factura ON factura.factura_id = vehiculo.factura_id "
+                     + "WHERE vehiculo.factura_id = " + id;
+        String msj = "";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
+            rs = stmt.getResultSet();
+            System.out.println("Consulta exitosa: ");
+            
+            while (rs.next()) {
+                //Imprime de las columnas de la base de datos con el getInt
+                msj += rs.getString("placas") + "\t";
+                msj += rs.getString("modelo") + "\t";
+                msj += "$" + rs.getString("costo") + "\t";
+            }
+            
             stmt.close();
             rs.close();
             conn.close();
@@ -336,7 +489,7 @@ public class Avanzado {
         cargar();
         conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
         
-        String query = "SELECT " + atributo + " FROM " + tabla + " WHEN " + tabla +"_id" + " = " + id;
+        String query = "SELECT " + atributo + " FROM " + tabla + " WHERE " + tabla +"_id" + " = " + id;
         String msj = "";
         
         try {
@@ -358,7 +511,7 @@ public class Avanzado {
         return msj;
     }
     
-    public static void Consulta(String tabla) {
+    public static String ConsultaCostoPoliza(String tabla, String atributo, int id) {
         Connection conn;
         Statement stmt;
         ResultSet rs;
@@ -366,29 +519,88 @@ public class Avanzado {
         cargar();
         conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
         
-        String query = "SELECT * FROM " + tabla;
+        String query = "SELECT " + atributo + " FROM " + tabla + " WHERE " + tabla +"_id" + " = " + id;
+        String msj = "";
         
         try {
             stmt = conn.createStatement();     //Creamos el statement
             rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
             rs = stmt.getResultSet();
             System.out.println("Consulta exitosa: ");
-            while (rs.next()) {
-                String msj = "";
-                
-                 //Imprime de las columnas de la base de datos con el getInt
-                msj += "Id: " + rs.getInt("id") + " ";
-                msj += "Nombre: " + rs.getString("nombre") + " ";
-                msj += "Edad: " + rs.getString("edad") + " ";
-                msj += "Sexo: " + rs.getString("sexo") + " ";
-                
-                System.out.println(msj);
-            }
+                    while (rs.next()) {
+                        msj += "Costo Póliza: $" + rs.getString(atributo) + "\t";
+                        msj += "\n";
+                    }          
             stmt.close();
             rs.close();
             conn.close();
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return msj;
     }
+    
+    public static String ConsultaPrimaAsegurada(String tabla, String atributo, int id) {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "SELECT " + atributo + " FROM " + tabla + " WHERE " + tabla +"_id" + " = " + id;
+        String msj = "";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
+            rs = stmt.getResultSet();
+            System.out.println("Consulta exitosa: ");
+                    while (rs.next()) {
+                        msj += "Costo Póliza: $" + rs.getString(atributo) + "\t";
+                        msj += "\n";
+                    }          
+            stmt.close();
+            rs.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return msj;
+    }
+    
+    public static String ConsultarDeVehiculo(String atributo, int id) {
+        Connection conn;
+        Statement stmt;
+        ResultSet rs;
+        
+        cargar();
+        conn = conectar("jdbc:mysql://localhost:3306/proyectoavanzado", "Laastar", "123");
+        
+        String query = "SELECT v." + atributo + " "
+                     + "FROM vehiculo v INNER JOIN factura f ON f.factura_id = v.factura_id "
+                     + "WHERE v.factura_id = " + id;
+        String msj = "";
+        
+        try {
+            stmt = conn.createStatement();     //Creamos el statement
+            rs = stmt.executeQuery(query);     //Guardamos el resultado de nuestra query
+            rs = stmt.getResultSet();
+            System.out.println("Consulta exitosa: ");
+                    while (rs.next()) {
+                        msj += atributo + ": " + rs.getString(atributo) + "\t";
+                        msj += "\n";
+                    }          
+            stmt.close();
+            rs.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return msj;
+    }
+    
 }

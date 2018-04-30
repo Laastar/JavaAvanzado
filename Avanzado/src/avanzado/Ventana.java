@@ -66,7 +66,7 @@ public class Ventana extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Consultas");
@@ -111,14 +111,39 @@ public class Ventana extends javax.swing.JFrame {
         });
 
         PlacasVehiculo.setText("Placas de vehículo");
+        PlacasVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PlacasVehiculoActionPerformed(evt);
+            }
+        });
 
         MostrarDesg2.setText("Desglose 2");
+        MostrarDesg2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarDesg2ActionPerformed(evt);
+            }
+        });
 
         PrimaAsegurada.setText("Prima asegurada");
+        PrimaAsegurada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrimaAseguradaActionPerformed(evt);
+            }
+        });
 
         CostoPoliza.setText("Costo póliza");
+        CostoPoliza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CostoPolizaActionPerformed(evt);
+            }
+        });
 
         MostrarDesg1.setText("Desglose 1");
+        MostrarDesg1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarDesg1ActionPerformed(evt);
+            }
+        });
 
         MostrarPolizas.setText("Mostra pólizas");
         MostrarPolizas.addActionListener(new java.awt.event.ActionListener() {
@@ -216,7 +241,7 @@ public class Ventana extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(ClienteIdConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AreaInteraccionLayout.createSequentialGroup()
-                                .addComponent(MostrarDesg1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(MostrarDesg1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(MostrarDesg2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(Nombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -270,16 +295,19 @@ public class Ventana extends javax.swing.JFrame {
                 .addComponent(Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PlacasVehiculo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CostoPoliza)
-                    .addComponent(Direccion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PrimaAsegurada)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MostrarDesg1)
-                    .addComponent(MostrarDesg2))
+                .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AreaInteraccionLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CostoPoliza)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PrimaAsegurada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MostrarDesg2)
+                            .addComponent(MostrarDesg1)))
+                    .addGroup(AreaInteraccionLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(Direccion)))
                 .addGap(27, 27, 27)
                 .addGroup(AreaInteraccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PolizaMayorCosto)
@@ -364,7 +392,10 @@ public class Ventana extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DireccionActionPerformed
-        
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.Consulta1("cliente","Direccion",id);
+        CajaResultados.setText(resultados);
     }//GEN-LAST:event_DireccionActionPerformed
 
     private void ClienteIdActualizacionEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteIdActualizacionEntradaActionPerformed
@@ -384,7 +415,9 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_ClienteIdConsultasActionPerformed
 
     private void MostrarPolizasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarPolizasActionPerformed
-        // TODO add your handling code here:
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultaGeneral("poliza");
+        CajaResultados.setText(resultados);
     }//GEN-LAST:event_MostrarPolizasActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
@@ -404,7 +437,16 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_MostrarFacturasActionPerformed
 
     private void MostrarDesgCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarDesgCienteActionPerformed
-        // TODO add your handling code here:
+        CajaResultados.setText("");
+        CajaResultados.append("Cliente\tPlacas\tModelo\tCosto\n\n");
+        for(int i=1;i<=5;i++){
+            //CajaResultados.append(String.valueOf(i) + "\t");
+            resultados = Avanzado.ConsultaGeneralCliente(i);
+            CajaResultados.append(resultados);
+            resultados = Avanzado.ConsultaGeneralVehiculo(i);
+            CajaResultados.append(resultados);
+            CajaResultados.append("\n");
+        }
     }//GEN-LAST:event_MostrarDesgCienteActionPerformed
 
     private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
@@ -413,6 +455,51 @@ public class Ventana extends javax.swing.JFrame {
         resultados = Avanzado.Consulta1("cliente","Nombre",id);
         CajaResultados.setText(resultados);
     }//GEN-LAST:event_NombreActionPerformed
+
+    private void PlacasVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlacasVehiculoActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultarDeVehiculo("Placas",id);
+        CajaResultados.setText(resultados);
+    }//GEN-LAST:event_PlacasVehiculoActionPerformed
+
+    private void MostrarDesg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarDesg1ActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.Consulta1("cliente","Nombre",id);
+        CajaResultados.setText(resultados);
+        resultados = Avanzado.ConsultarDeVehiculo("Placas",id);
+        CajaResultados.append(resultados);
+        resultados = Avanzado.Consulta1("cliente","Direccion",id);
+        CajaResultados.append(resultados);
+    }//GEN-LAST:event_MostrarDesg1ActionPerformed
+
+    private void MostrarDesg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarDesg2ActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.Consulta1("cliente","Nombre",id);
+        CajaResultados.setText(resultados);
+        resultados = Avanzado.ConsultarDeVehiculo("Placas",id);
+        CajaResultados.append(resultados);
+        resultados = Avanzado.ConsultaCostoPoliza("poliza","Monto_Total",id);
+        CajaResultados.append(resultados);
+        resultados = Avanzado.ConsultaPrimaAsegurada("poliza","Prima_Asegurada",id);
+        CajaResultados.append(resultados);
+    }//GEN-LAST:event_MostrarDesg2ActionPerformed
+
+    private void CostoPolizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CostoPolizaActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultaCostoPoliza("poliza","Monto_Total",id);
+        CajaResultados.setText(resultados);
+    }//GEN-LAST:event_CostoPolizaActionPerformed
+
+    private void PrimaAseguradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrimaAseguradaActionPerformed
+        int id = Integer.parseInt(ClienteIdConsultas.getText());
+        CajaResultados.setText("");
+        resultados = Avanzado.ConsultaPrimaAsegurada("poliza","Prima_Asegurada",id);
+        CajaResultados.setText(resultados);
+    }//GEN-LAST:event_PrimaAseguradaActionPerformed
 
     /**
      * @param args the command line arguments
